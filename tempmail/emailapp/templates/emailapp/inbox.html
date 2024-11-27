@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .email-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .email-item:hover {
+            background-color: #f1f1f1;
+        }
+        .email-item .sender {
+            font-weight: bold;
+        }
+        .email-item .subject {
+            color: #007bff;
+        }
+        .button {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #dc3545;
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inbox for {{ email.address }}</h1>
+        <ul>
+            {% for mail in emails %}
+                <li class="email-item">
+                    <p class="sender">From: {{ mail.sender }}</p>
+                    <p class="subject">Subject: <a href="#">{{ mail.subject }}</a></p>
+                    <p>{{ mail.body }}</p>
+                    <a href="{% url 'delete_email' email_id=mail.id %}" class="button">Delete</a>
+                </li>
+            {% empty %}
+                <p>No emails found.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
